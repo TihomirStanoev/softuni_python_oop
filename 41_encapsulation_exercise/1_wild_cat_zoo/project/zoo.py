@@ -60,33 +60,61 @@ class Zoo:
     def profit(self, amount):
         self.__budget += amount
 
-#TODO: Make this two methods in one.
-    def animals_status(self):
-        result = [f'You have {len(self.animals)} animals']
-        total_animals = {'Lion':[], 'Tiger': [], 'Cheetah': []}
 
-        for animal in self.animals:
-            animal_type = type(animal).__name__
-            total_animals[animal_type].append(f'{animal!r}')
+    @staticmethod
+    def __result(object_list, status):
+        result = [f'You have {len(object_list)} {status}']
+        result_dict = {}
 
-        for animal_type, animals in total_animals.items():
-            result.append(f'----- {len(animals)} {animal_type}s:')
-            for animal in animals:
-                result.append(animal)
+        for object_ in object_list:
+            object_type = type(object_).__name__
+            if object_type in result_dict:
+                result_dict[object_type].append(f'{object_!r}')
+            else:
+                result_dict[object_type] = [f'{object_!r}']
+
+        for object_type, object_ in result_dict.items():
+            result.append(f'----- {len(object_)} {object_type}s:')
+            for obj in object_:
+                result.append(obj)
 
         return '\n'.join(result)
+
+    def animals_status(self):
+        return self.__result(self.animals, 'animals')
 
     def workers_status(self):
-        result = [f'You have {len(self.workers)} workers']
-        total_workers = {'Keeper':[], 'Caretaker': [], 'Vet': []}
+        return self.__result(self.workers, 'workers')
 
-        for worker in self.workers:
-            worker_type = type(worker).__name__
-            total_workers[worker_type].append(f'{worker!r}')
 
-        for worker_type, workers in total_workers.items():
-            result.append(f'----- {len(workers)} {worker_type}s:')
-            for worker in workers:
-                result.append(worker)
 
-        return '\n'.join(result)
+    # TODO: Make this two methods in one.
+    # def animals_status(self):
+    #     result = [f'You have {len(self.animals)} animals']
+    #     total_animals = {'Lion':[], 'Tiger': [], 'Cheetah': []}
+    #
+    #     for animal in self.animals:
+    #         animal_type = type(animal).__name__
+    #         total_animals[animal_type].append(f'{animal!r}')
+    #
+    #     for animal_type, animals in total_animals.items():
+    #         result.append(f'----- {len(animals)} {animal_type}s:')
+    #         for animal in animals:
+    #             result.append(animal)
+    #
+    #     return '\n'.join(result)
+    #
+    # def workers_status(self):
+    #     result = [f'You have {len(self.workers)} workers']
+    #     total_workers = {'Keeper':[], 'Caretaker': [], 'Vet': []}
+    #
+    #     for worker in self.workers:
+    #         worker_type = type(worker).__name__
+    #         total_workers[worker_type].append(f'{worker!r}')
+    #
+    #     for worker_type, workers in total_workers.items():
+    #         result.append(f'----- {len(workers)} {worker_type}s:')
+    #         for worker in workers:
+    #             result.append(worker)
+    #
+    #     return '\n'.join(result)
