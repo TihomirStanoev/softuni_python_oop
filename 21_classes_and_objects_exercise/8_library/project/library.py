@@ -1,31 +1,35 @@
+from project.user import User
+
 class Library:
     def __init__(self):
-        self.user_records = []
-        self.books_available = {}
-        self.rented_books = {}
+        self.user_records: list[User] = []
+        self.books_available: dict[str:[str]] = {} # {'Authors':['Books']}
+        self.rented_books: dict[str:dict[str:int]] = {} # {'usernames':{'book1': 5, 'book2':3 }}
 
-    def get_book(self, author, book_name, days_to_return, user):
-        if user not in self.user_records:
+    def _is_rented(self, book_name: str):
+        for _, __ in self.rented_books.items():
+            for rented_book, days in __.items():
+                if book_name == rented_book:
+                    return days
+        return -1
+
+    def _is_available(self, author, book_name):
+        return  book_name in self.books_available.get(author, [])
+
+
+    def get_book(self, author: str, book_name: str, days_to_return: int, user: User):
+        rented_days = self._is_rented(book_name)
+
+        if rented_days >= 0:
+            return f'The book "{book_name}" is already rented and will be available in {rented_days} days!'
+        if not self._is_available(author, book_name):
             return None
-        if author not in self.books_available:
-            return None
+        if user.username not in self.rented_books:
+            self.rented_books[user.username] = {}
 
-        available_book = next((book for book in self.books_available.get(author,[]) if book == book_name), None)
+        self.rented_books[user.username][book_name] = days_to_return
+        user.books.append(book_name)
+        self.books_available[author].remove(book_name)
 
-        if available_book:
-            self.books_available[author].remove(available_book)
-            user.books.append(book_name)
-
-            if user.username in self.rented_books:
-                self.rented_books[user.username][book_name] = days_to_return
-            else:
-                self.rented_books[user.username] = {book_name:days_to_return}
-            return f'{book_name} successfully rented for the next {days_to_return} days!'
-
-        for books in self.rented_books.values():
-            for rented_book, days_left in books.items():
-                if rented_book == book_name:
-                    return f'The book "{rented_book}" is already rented and will be available in {days_left} days!'
-        else:
-            return None
+        return f'{book_name} successfully rented for the next {days_to_return} days!'
 
