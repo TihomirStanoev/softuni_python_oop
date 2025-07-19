@@ -1,0 +1,15 @@
+from project.formula_teams.formula_team import FormulaTeam
+
+
+
+class MercedesTeam(FormulaTeam):
+    EXPENSES_PER_RACE = 200_000
+    def __init__(self, budget):
+        super().__init__(budget)
+        self.sponsors = {
+            'Petronas': {1: 1_000_000, 3: 500_000},
+            'TeamViewer': {5: 100_000, 7:50_000}
+        }
+
+
+
