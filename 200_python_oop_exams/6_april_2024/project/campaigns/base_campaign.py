@@ -9,7 +9,7 @@ class BaseCampaign(ABC):
         self.brand = brand
         self.budget = budget
         self.required_engagement = required_engagement
-        self.approved_influencers: list = []
+        self.approved_influencers = []
 
     @property
     def campaign_id(self):
