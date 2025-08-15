@@ -37,3 +37,5 @@ class Route:
             raise ValueError('Length cannot be less than 1.00 kilometer!')
         self.__length = value
 
+    def lock_the_route(self):
+        self.is_locked = True

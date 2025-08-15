@@ -1,5 +1,5 @@
 class User:
-    INCREASES_RATING = 1.5
+    INCREASES_RATING = 0.5
     DECREASES_RATING = 2.0
     MAX_RATING = 10
     def __init__(self, first_name: str, last_name: str, driving_license_number: str):
@@ -50,13 +50,14 @@ class User:
         self.__rating = value
 
     def increase_rating(self):
-        self.rating = min(self.rating * self.INCREASES_RATING, self.MAX_RATING)
+        self.rating = min(self.rating + self.INCREASES_RATING, self.MAX_RATING)
 
     def decrease_rating(self):
-        self.rating -= self.DECREASES_RATING
-        if self.rating < 0: #1
+        if self.rating - self.DECREASES_RATING < 0: #1
             self.rating = 0
             self.is_blocked = True
+        else:
+            self.rating -= self.DECREASES_RATING
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} Driving license: {self.driving_license_number} Rating: {self.rating}'
