@@ -1,5 +1,21 @@
 class Concert:
-    GENRE = ['Metal','Rock','Jazz']
+    GENRE = {
+        'Rock': {
+            'Drummer': ['play the drums with drumsticks'],
+            'Singer': ['sing high pitch notes'],
+            'Guitarist': ['play rock']
+        },
+        'Metal': {
+            'Drummer': ['play the drums with drumsticks'],
+            'Singer': ['sing low pitch notes'],
+            'Guitarist': ['play metal']
+        },
+        'Jazz': {
+            'Drummer': ['play the drums with drum brushes'],
+            'Singer': ['sing high pitch notes', 'sing low pitch notes'],
+            'Guitarist': ['play jazz']
+        }}
+
     def __init__(self,genre: str, audience: int, ticket_price: float, expenses: float, place: str):
         self.genre = genre
         self.audience = audience
@@ -13,7 +29,7 @@ class Concert:
 
     @genre.setter
     def genre(self, value):
-        if value not in self.GENRE:
+        if value not in self.GENRE.keys():
             raise ValueError(f'Our group doesn\'t play {value}!')
         self.__genre = value
 

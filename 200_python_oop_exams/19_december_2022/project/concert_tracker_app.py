@@ -66,6 +66,7 @@ class ConcertTrackerApp:
         return f'{name} is now a {musician_type}.'
 
 
+
     def create_band(self, name: str):
         band = self._find_band_by_name(name)
         if band:
@@ -74,6 +75,7 @@ class ConcertTrackerApp:
         band = Band(name)
         self.bands.append(band)
         return f'{name} was created.'
+
 
     def create_concert(self, genre: str, audience: int, ticket_price: float, expenses: float, place: str):
         concert = self._find_concert_by_place(place)

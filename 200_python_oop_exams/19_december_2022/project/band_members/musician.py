@@ -32,6 +32,10 @@ class Musician(ABC):
     def available_skills(self):
         pass # list[list of available types]
 
+    @property
+    def musician_type(self):
+        return type(self).__name__
+
     def learn_new_skill(self, new_skill: str):
         if new_skill not in self.available_skills:
             raise ValueError(f'{new_skill} is not a needed skill!')
