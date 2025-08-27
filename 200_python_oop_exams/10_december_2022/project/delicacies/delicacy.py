@@ -30,3 +30,8 @@ class Delicacy(ABC):
     @abstractmethod
     def details(self):
         pass
+
+    @property
+    @abstractmethod
+    def type_delicacy(self):
+        pass

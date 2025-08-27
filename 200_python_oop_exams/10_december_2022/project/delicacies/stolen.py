@@ -8,3 +8,7 @@ class Stolen(Delicacy):
 
     def details(self):
         return f'Stolen {self.name}: {self.PORTION}g - {self.price:.2f}lv.'
+
+    @property
+    def type_delicacy(self):
+        return 'Stolen'

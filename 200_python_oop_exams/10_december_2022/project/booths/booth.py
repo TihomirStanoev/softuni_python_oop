@@ -20,7 +20,19 @@ class Booth(ABC):
             raise ValueError('Capacity cannot be a negative number!')
         self.__capacity = value
 
+    @property
+    @abstractmethod
+    def type_delicacy(self):
+        pass
 
     @abstractmethod
     def reserve(self, number_of_people: int):
         pass
+
+    def order(self, delicacy):
+        self.delicacy_orders.append(delicacy)
+
+    def leave(self):
+        self.delicacy_orders.clear()
+        self.price_for_reservation = 0
+        self.is_reserved = False
