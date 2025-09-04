@@ -17,3 +17,6 @@ class Client:
             raise ValueError('Invalid phone number!')
         self.__phone_number = value
 
+    def clear_card(self):
+        self.shopping_cart.clear()
+        self.bill = 0
